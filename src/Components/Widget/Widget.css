@@ -1,0 +1,58 @@
+.Widget {
+  display: flex;
+  background-color: #f5f5f5;
+  gap: 5px;
+  flex: 1;
+  height: 200px;
+  justify-content: space-between;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgb(209, 209, 209);
+
+  .widgetRight,
+  .widgetLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+
+    .User {
+      color: rgb(159, 159, 159);
+      font-weight: bold;
+    }
+    .id {
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .link {
+      color: rgb(70, 70, 70);
+    }
+    
+  }
+  .widgetLeft{
+    
+    .percentage {
+        display: flex;
+        align-items: s;
+        align-items: center;
+        font-size: 20px;
+        color: #f6f6f6;
+        border-radius: 8px;
+        padding: 4px;
+        background-color: green ;
+      }
+      .containerIcon{
+        display: flex;
+        justify-content: center ;
+          .icon{
+            display: flex;
+            justify-content: center;
+            background-color: rgb(255, 61, 94)  ;
+            padding: 7px;
+            border-radius: 8px;
+            
+          }
+
+      }
+  }
+}

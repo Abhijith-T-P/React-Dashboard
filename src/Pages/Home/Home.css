@@ -2,8 +2,13 @@
     display: flex;
     
     .homeContainer{
-        background-color: rgb(240, 240, 240);
+        background-color: #f6f6f6;
         flex: 5;
+    }
+    .Widgets{
+        display: flex;
+        padding: 10px;
+        /* background-color: palegoldenrod; */
     }
     
 }
