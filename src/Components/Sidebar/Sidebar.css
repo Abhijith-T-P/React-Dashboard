@@ -2,8 +2,16 @@
   flex: 1;
   border-right: 0.5px solid gray;
   min-height: 100vh;
+  background-color: #e0e0e0;
+  div{
+    background-color: whitesmoke;
+    margin: 5px 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px rgb(209, 209, 209) ;
+
+  }
   .top {
-    height: 50px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +28,7 @@
       list-style: none;
       display: block;
       align-items: center;
-      border-top: 0.5px solid gray;
+      
       li {
         padding: 10px;
         
@@ -56,7 +64,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px;
     padding: 8px;
     .colorMode {
       display: flex;
