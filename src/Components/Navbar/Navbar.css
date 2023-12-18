@@ -1,5 +1,5 @@
 .Navbar {
-  height: 70px ;
+  height: 70px;
   border-bottom: 0.5px solid gray;
   display: flex;
   align-items: center;
@@ -11,7 +11,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    
 
     .items {
       display: flex;
@@ -27,8 +26,8 @@
         position: relative;
         cursor: pointer;
         border-radius: 8px;
-        .icon{
-          &:hover{
+        .icon {
+          &:hover {
             font-size: 175%;
           }
         }
@@ -69,7 +68,7 @@
       padding: 7px;
       border-radius: 8px;
       background-color: whitesmoke;
-      box-shadow: 1px 1px 1px 1px rgb(209, 209, 209) ;
+      box-shadow: 1px 1px 1px 1px rgb(209, 209, 209);
 
       .searchIcon {
         padding-left: 5 px;
