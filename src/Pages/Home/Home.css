@@ -1,0 +1,9 @@
+.Home{
+    display: flex;
+    
+    .homeContainer{
+        background-color: rgb(240, 240, 240);
+        flex: 5;
+    }
+    
+}
