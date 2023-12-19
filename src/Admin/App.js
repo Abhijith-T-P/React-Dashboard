@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Navbar from "./Components/Navbar/Navbar";
 import District from "./Pages/District/District";
+import Category from "./Pages/Category/Category";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/District" element={<District />} />
+            <Route path="/Category" element={<Category />} />
           </Routes>
         </div>
       </div>

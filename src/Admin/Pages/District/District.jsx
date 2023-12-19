@@ -1,22 +1,48 @@
-import { Button, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import './District.css';
-import { collection, addDoc } from 'firebase/firestore';
-import {db} from '../../../config/Firebase'
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import "./District.css";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../../../config/Firebase";
 
 const District = () => {
-
-  const [district, setDistrict] = useState('')
+  const [district, setDistrict] = useState("");
+  const [showdistrict, setShowDistrict] = useState([]);
 
   const addDistrict = async () => {
-    
-    const docRef = await addDoc(collection(db, 'districts'), {
-      district 
+    const docRef = await addDoc(collection(db, "districts"), {
+      district,
     });
+    fetchData();
+    setDistrict('')
     console.log("Document written with ID: ", docRef.id);
+  };
 
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "districts"));
+    const data = querySnapshot.docs.map((doc, key) => ({
+      id: key + 1,
+      districtId: doc.id,
+      ...doc.data(),
+    }));
+    setShowDistrict(data);
+    console.log(data);
+  };
 
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="District">
       <div className="wrapper">
@@ -24,18 +50,53 @@ const District = () => {
           District
         </Typography>
         <div className="form">
-            <div className="formWrapper">
+          <div className="formWrapper">
             <div className="input">
-                <TextField id="outlined-basic" label="Name of the district" required  onChange={(event) => setDistrict(event.target.value)}/>
+              <TextField
+                id="outlined-basic"
+                label="Name of the district"
+                value={district}
+                required
+                onChange={(event) => setDistrict(event.target.value)}
+              />
             </div>
             <div className="btn">
-
-          <Button variant="outlined"type="submit" className="btn" onClick={addDistrict}>Submit</Button>
+              <Button
+                variant="outlined"
+                type="submit"
+                className="btn"
+                onClick={addDistrict}
+              >
+                Submit
+              </Button>
             </div>
-
-            </div>
-
+          </div>
         </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <TableContainer component={Paper} sx={{ width: "600px" }}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Dessert (100g serving)</TableCell>
+                <TableCell>Calories</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {showdistrict.map((doc, key) => (
+                <TableRow
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  key={key}
+                >
+                  <TableCell component="th" scope="row">
+                    {doc.id}
+                  </TableCell>
+                  <TableCell>{doc.district}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );
