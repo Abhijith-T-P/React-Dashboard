@@ -11,7 +11,7 @@ function Sidebar() {
   return (
     <div className="Sidebar">
       <div className="top">
-        <span className="logo">Untitled</span>
+        <span className="logo">지역선택</span>
       </div>
      
       <div className="center">
