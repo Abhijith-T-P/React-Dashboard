@@ -10,3 +10,6 @@
 .App{
     background-color: var(--primary);
 }
+body{
+    background-color: aliceblue;
+}
