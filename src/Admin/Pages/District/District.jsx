@@ -12,19 +12,26 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./District.css";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
 const District = () => {
   const [district, setDistrict] = useState("");
   const [showdistrict, setShowDistrict] = useState([]);
+  const dist = collection(db, "districts");
 
   const addDistrict = async () => {
     const docRef = await addDoc(collection(db, "districts"), {
       district,
     });
     fetchData();
-    setDistrict('')
+    setDistrict("");
     console.log("Document written with ID: ", docRef.id);
   };
 
@@ -42,6 +49,15 @@ const District = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const deleteData = async (id) => {
+    try {
+      await deleteDoc(doc(dist, id));
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="District">
@@ -78,8 +94,9 @@ const District = () => {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell>Calories</TableCell>
+                <TableCell>Sl .No</TableCell>
+                <TableCell>District</TableCell>
+                <TableCell align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -92,6 +109,14 @@ const District = () => {
                     {doc.id}
                   </TableCell>
                   <TableCell>{doc.district}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      variant="outlined"
+                      onClick={() => deleteData(doc.districtId)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

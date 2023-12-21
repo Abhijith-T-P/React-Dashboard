@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { db } from "../../../config/Firebase";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import "./category.css";
 
 const Category = () => {
@@ -20,16 +20,20 @@ const Category = () => {
   const [category, setCategory] = useState("");
   const [dispalyData, setDispalyData] = useState([]);
 
+
   const addCategory = async () => {
     try {
       await addDoc(Cat, {
         categoryName: category,
       });
       alert(`${category} inserted Succesfulley`);
+      showCategory();
+      setCategory("");
+
     } catch (error) {
       console.error(error);
-      showCategory();
     }
+    
   };
   const showCategory = async () => {
     const data = await getDocs(Cat);
@@ -40,9 +44,16 @@ const Category = () => {
     setDispalyData(filtereData);
   };
 
-  useEffect(() => {
+  const deleteData = async (Id) => {
+    const msg = await deleteDoc(doc(Cat,Id ));
+    console.log(msg);
     showCategory();
-  }, []);
+
+
+  }
+
+  useEffect(() => {}, []);
+  showCategory();
 
   return (
     <div className="Category">
@@ -57,6 +68,7 @@ const Category = () => {
                 id="outlined-basic"
                 label=" Category name"
                 required
+                value = {category }
                 onChange={(event) => setCategory(event.target.value)}
               />
             </div>
@@ -78,17 +90,28 @@ const Category = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>id</TableCell>
-                    <TableCell align="right">Category</TableCell>
+                    <TableCell align="center">id</TableCell>
+                    <TableCell align="center">Category</TableCell>
+                    <TableCell align="center">Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {dispalyData.map((row, index) => (
                     <TableRow>
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" align="center">
                         {index + 1}
                       </TableCell>
-                      <TableCell align="right">{row.categoryName} </TableCell>
+                      <TableCell align="center">{row.categoryName} </TableCell>
+                      <TableCell align="center">
+                        <Button
+                          variant="outlined"
+                          type="submit"
+                          className="btn"
+                          onClick={() => deleteData(row.ID)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
