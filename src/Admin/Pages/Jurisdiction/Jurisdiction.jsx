@@ -12,7 +12,13 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./Jurisdiction.css";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 const Jurisdiction = () => {
   const jur = collection(db, "Jurisdiction");
@@ -44,6 +50,16 @@ const Jurisdiction = () => {
       }));
       setDispayData(filteredData);
       console.log(filteredData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deleteValue = async (id) => {
+    try {
+      console.log(id);
+       const msg= await deleteDoc(doc(jur, id));
+      showJurisdiction();
+      console.log(msg);
     } catch (error) {
       console.error(error);
     }
@@ -85,20 +101,31 @@ const Jurisdiction = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>Index</TableCell>
-                    <TableCell align="right">Jurisdiction</TableCell>
-                    <TableCell align="right">Action</TableCell>
-                    <TableCell align="right"></TableCell>
+                    <TableCell align="center">Jurisdiction</TableCell>
+                    <TableCell align="center">Action</TableCell>
+                    <TableCell align="center"></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {dispalayData.map((row, index) => (
-                    <TableRow>
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
                         {index + 1}
                       </TableCell>
-                      <TableCell align="right"> {row.Jurisdiction} </TableCell>
-                      <TableCell align="right">2</TableCell>
-                      <TableCell align="right">2</TableCell>
+                      <TableCell align="center"> {row.Jurisdiction} </TableCell>
+                      <TableCell align="center">
+                        <Button variant="outlined" onClick={""}>
+                          Update
+                        </Button>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Button
+                          variant="outlined"
+                          onClick={() => deleteValue(row.ID)}  
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

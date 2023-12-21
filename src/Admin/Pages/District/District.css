@@ -10,7 +10,9 @@
     display: flex;
     justify-content: center;
     padding: 10px;
-    
+     .input{
+      padding: 5px;
+     }
 
     .formWrapper{
         padding: 25px;
