@@ -9,6 +9,7 @@ import Category from "./Pages/Category/Category";
 import Jurisdiction from "./Pages/Jurisdiction/Jurisdiction";
 import CaseType from "./Pages/CaseType/Casetype";
 import Subcategory from "./Pages/Subcategory/Subcategory";
+import Place from "./Pages/Place/Place";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/Jurisdiction" element={<Jurisdiction />} />
             <Route path="/Case" element={<CaseType />} />
             <Route path="/Subcategory" element={<Subcategory />} />
+            <Route path="/Place" element={<Place />} />
 
           </Routes>
         </div>

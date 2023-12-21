@@ -23,7 +23,7 @@ import { db } from "../../../config/Firebase";
 
 const District = () => {
   const [district, setDistrict] = useState("");
-  const [showdistrict, setShowDistrict] = useState([]);
+    const [showdistrict, setShowDistrict] = useState([]);
   const dist = collection(db, "districts");
 
   const addDistrict = async () => {

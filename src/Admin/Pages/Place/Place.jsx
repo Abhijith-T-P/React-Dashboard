@@ -12,55 +12,53 @@ import "../District/District.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../config/Firebase";
 
-const Subcategory = () => {
-  const Cat = collection(db, "Lawyer_Category");
+const Place = () => {
+  const [showdistrict, setShowDistrict] = useState([]);
+  const [district,setDistrict]=useState("");
 
-  const [category, setCategory] = useState("");
-  const [dispalyData, setDispalyData] = useState([]);
-
-  const showCategory = async () => {
-    const data = await getDocs(Cat);
-    const filtereData = data.docs.map((doc, key) => ({
+  useEffect (() => {
+    fetchData();
+  },[])
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "districts"));
+    const data = querySnapshot.docs.map((doc, key) => ({
+      id: key + 1,
+      districtId: doc.id,
       ...doc.data(),
-      ID: doc.id,
     }));
-    setDispalyData(filtereData);
+    setShowDistrict(data);
+    console.log(data);
   };
-
-  useEffect(() => {
-    showCategory();
-  }, []);
   return (
-    <div className="Subcategory">
+    <div className="Place">
       <div className="wrapper">
         <Typography variant="h3" className="h1">
-          Subcategory
+          Place
         </Typography>
         <div className="form">
           <div className="formWrapper">
+            <div className="input"></div>
             <div className="input">
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <InputLabel id="demo-simple-select-label">District  </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={category}
-                  label="Category"
-                  onChange={(event) => setCategory(event.target.value)}
+                  value={district}
+                  label="District"
+                  onChange={(e) => setDistrict(e.target.value)}
                 >
-                  {dispalyData.map((doc, key) => (
-                    <MenuItem value={doc.ID}>{doc.categoryName} </MenuItem>
-                  ))}
+                    {showdistrict.map((doc,key)=>(
+
+                  <MenuItem value={doc.id}>{doc.district}</MenuItem>
+                    ))}
+                 
                 </Select>
               </FormControl>
             </div>
             <div className="input">
-              <TextField
-                id="outlined-basic"
-                label="Subcategory name"
-                required
-              />
-            </div>  
+              <TextField id="outlined-basic" label="Place name" required />
+            </div>
 
             <div className="btn">
               <Button variant="outlined" type="submit" className="btn">
@@ -74,4 +72,4 @@ const Subcategory = () => {
   );
 };
 
-export default Subcategory;
+export default Place;
